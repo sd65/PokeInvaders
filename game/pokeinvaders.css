@@ -1,0 +1,8 @@
+section .jeu {
+	border-style: dashed;
+	border-width: 2px; 
+}
+
+h1 {
+	text-align: center;
+}

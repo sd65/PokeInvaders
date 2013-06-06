@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>	
+	<script type="text/javascript" src="crafty.js"></script>
+	<title>Pok&eacute;Invaders</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+ 
+  	<meta name="title" content="Accueil" />
+ 	<meta name="description" content="Jeu Pok&eacute;Invaders"/>
+  	<meta name="keywords" content="pokemon,invaders,pokeinvaders"/>
+
+  	<link rel='stylesheet' href='pokeinvaders.css' type='text/css' />
+</head>
+<body> 
+	<h1>Pok&eacute;Invaders</h1>
+
+	<section class="jeu">
+			<script type="text/javascript">
+
+
+		   Crafty.init(640, 460);
+	     
+		   Crafty.background("url(backa.jpg)");
+
+	//Gestion du joueur
+
+			var joueur = Crafty.e("Joueur, 2D, DOM, Color, Multiway")
+				.color('rgb(0,255,0)')	//image
+				.attr({ x: 300, y: 420, w: 40, h: 40 })		//position et taille
+				.multiway(6, { RIGHT_ARROW: 0, LEFT_ARROW: -180 });		//gestion des déplacements
+
+			var positionDresseur = this._x;
+
+			joueur.addComponent("Collision").collision();
+
+			//Gestion des collisions sur les côtés
+
+			var blockLeft = Crafty.e("2D, Canvas, Color, Collision, BlockL")
+					.color("transparent")
+					.attr({h:460, w:46, x:0, y:0 })
+					.collision()
+
+			var blockRight = Crafty.e("2D, Canvas, Color, Collision, BlockR")
+					.color("transparent")
+					.attr({h:460, w:46, x:594, y:0 })
+					.collision()
+
+			 joueur.onHit("BlockL",function(hit) {
+			    this._falling = false;
+			    this.attr({x: 46});
+			  });
+
+			  joueur.onHit("BlockR",function(hit) {
+			    this._falling = false;
+			    this.attr({x: 553});
+			  });
+
+			
+			//Gestion de la pokéball
+			
+
+			//Pokemon
+			for(var a=0; a<=9; a++) {
+				for (var b=0;b<=4; b++) {
+					Crafty.e("Pokemon,2D,DOM,Color")
+						.attr({x: (120+(a*40)), y: (110+(b*40)), w: 40, h: 40 })
+						.color("url(Bulbizarre.gif)");
+				}
+			}
+
+
+			//Gestion des scores
+
+			/*Crafty.e("LeftPoints, DOM, 2D, Text")
+				.attr({ x: 20, y: 20, w: 100, h: 20, points: 0 })
+				.text("0 Pokemons");*/
+
+			Crafty.e("RightPoints, DOM, 2D, Text")
+				.attr({ x: 550, y: 10, w: 100, h: 20, points: 0 })
+				.text("0 Pokemons");
+
+				</script>
+			<p>Développement : Michel Do</p>
+
+		</section>
+</body>
+</html>
+
